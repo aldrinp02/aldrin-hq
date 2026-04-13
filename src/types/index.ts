@@ -120,6 +120,25 @@ export interface Contact {
 export type CreateContactInput = Omit<Contact, 'id' | 'user_id' | 'created_at' | 'updated_at'>
 export type UpdateContactInput = Partial<CreateContactInput>
 
+// --- Contact Services ---
+
+export type ServiceType   = 'recurring' | 'one_time'
+export type ServiceStatus = 'active' | 'paused' | 'cancelled'
+
+export interface ContactService {
+  id: string
+  user_id: string
+  contact_id: string
+  name: string
+  type: ServiceType
+  amount: number
+  status: ServiceStatus
+  created_at: string
+}
+
+export type CreateServiceInput = Omit<ContactService, 'id' | 'user_id' | 'created_at'>
+export type UpdateServiceInput = Partial<Pick<ContactService, 'name' | 'type' | 'amount' | 'status'>>
+
 // --- UI / Shared ---
 
 export interface ApiError {

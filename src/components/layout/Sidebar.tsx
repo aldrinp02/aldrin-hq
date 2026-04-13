@@ -5,16 +5,19 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import {
-  Sun, FolderOpen, CheckSquare, Layout, Users,
-  ChevronLeft, ChevronRight, LogOut, Menu
+  Sun, FolderOpen, CheckSquare, Layout, Users, CalendarDays,
+  ChevronLeft, ChevronRight, LogOut, Menu, DollarSign, BarChart2
 } from 'lucide-react'
 
 const NAV = [
-  { href: '/',          label: 'Morning Briefing', icon: Sun },
-  { href: '/projects',  label: 'Proyectos',         icon: FolderOpen },
-  { href: '/tasks',     label: 'Tareas',             icon: CheckSquare },
-  { href: '/pipeline',  label: 'Pipeline',           icon: Layout },
-  { href: '/crm',       label: 'CRM',                icon: Users },
+  { href: '/',              label: 'Morning Briefing', icon: Sun },
+  { href: '/projects',      label: 'Proyectos',         icon: FolderOpen },
+  { href: '/tasks',         label: 'Tareas',             icon: CheckSquare },
+  { href: '/pipeline',      label: 'Pipeline',           icon: Layout },
+  { href: '/calendar',      label: 'Calendario',         icon: CalendarDays },
+  { href: '/crm',           label: 'CRM',                icon: Users },
+  { href: '/finanzas',      label: 'Finanzas',           icon: DollarSign },
+  { href: '/estadisticas',  label: 'Estadísticas',       icon: BarChart2 },
 ]
 
 export default function Sidebar() {
