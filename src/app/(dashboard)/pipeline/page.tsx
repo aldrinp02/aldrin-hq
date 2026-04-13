@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Plus, X, GripVertical, Trash2, Calendar, FileText } from 'lucide-react'
 import { PageHeader, Skeleton, ErrorState } from '@/components/ui'
-import type { ContentItem, ContentStage } from '@/types'
+import type { ContentItem, ContentStage, Platform, ContentFormat } from '@/types'
 
 const STAGES: { key: ContentStage; label: string; color: string }[] = [
   { key: 'idea',      label: 'Idea',       color: '#555560' },
@@ -126,7 +126,7 @@ function DetailPanel({ item, onClose, onSave, onDelete }: {
             <p className="text-[10px] text-[#555560] uppercase tracking-wider mb-1.5">Plataforma</p>
             <select
               value={form.platform}
-              onChange={e => setForm(f => ({ ...f, platform: e.target.value }))}
+              onChange={e => setForm(f => ({ ...f, platform: e.target.value as Platform }))}
               className="w-full bg-black border border-[#2a2a35] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#FEC300]"
             >
               {['instagram','tiktok','youtube','twitter','linkedin'].map(v => <option key={v} value={v}>{v}</option>)}
@@ -136,7 +136,7 @@ function DetailPanel({ item, onClose, onSave, onDelete }: {
             <p className="text-[10px] text-[#555560] uppercase tracking-wider mb-1.5">Formato</p>
             <select
               value={form.format}
-              onChange={e => setForm(f => ({ ...f, format: e.target.value }))}
+              onChange={e => setForm(f => ({ ...f, format: e.target.value as ContentFormat }))}
               className="w-full bg-black border border-[#2a2a35] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#FEC300]"
             >
               {['reel','post','story','video','thread'].map(v => <option key={v} value={v}>{v}</option>)}
