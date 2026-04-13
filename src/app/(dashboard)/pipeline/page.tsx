@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Plus, X, GripVertical, Trash2, Calendar, FileText } from 'lucide-react'
+import { Plus, X, GripVertical, Trash2, Calendar, FileText, Sparkles } from 'lucide-react'
 import { PageHeader, Skeleton, ErrorState } from '@/components/ui'
 import type { ContentItem, ContentStage, Platform, ContentFormat } from '@/types'
 
@@ -38,6 +38,9 @@ function extractMeta(script: string | null): { pilar: string; cta: string; hook:
   }
 }
 
+const PILARES = ['El Sistema', 'Táctico & Ads', 'Prueba & Transformación', 'Emprendedor Real']
+const ANGULOS = ['A1 Accionable', 'A2 Aspiracional', 'A3 Analítico', 'A4 Antropológico']
+
 function DetailPanel({ item, onClose, onSave, onDelete }: {
   item: ContentItem
   onClose: () => void
@@ -46,7 +49,24 @@ function DetailPanel({ item, onClose, onSave, onDelete }: {
 }) {
   const [form, setForm] = useState({ ...item })
   const [saving, setSaving] = useState(false)
+  const [generating, setGenerating] = useState(false)
+  const [aiPilar, setAiPilar] = useState('Táctico & Ads')
+  const [aiAngulo, setAiAngulo] = useState('A1 Accionable')
   const meta = extractMeta(form.script)
+
+  async function handleGenerate() {
+    setGenerating(true)
+    const res = await fetch('/api/ai/generate-script', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: form.title, pilar: aiPilar, angle: aiAngulo }),
+    })
+    if (res.ok) {
+      const { script } = await res.json()
+      setForm(f => ({ ...f, script }))
+    }
+    setGenerating(false)
+  }
 
   async function handleSave() {
     setSaving(true)
@@ -175,6 +195,38 @@ function DetailPanel({ item, onClose, onSave, onDelete }: {
         )}
 
         <div className="border-t border-[#1a1a1f]" />
+
+        {/* Generar con IA */}
+        <div className="bg-black border border-[#2a2a35] rounded-xl p-4 space-y-3">
+          <p className="text-[10px] text-[#555560] uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles size={11} className="text-[#FEC300]" />
+            Generar guión con IA
+          </p>
+          <div className="flex gap-2">
+            <select
+              value={aiPilar}
+              onChange={e => setAiPilar(e.target.value)}
+              className="flex-1 bg-[#0d0d0f] border border-[#2a2a35] rounded-lg px-2 py-1.5 text-white text-xs focus:outline-none focus:border-[#FEC300]"
+            >
+              {PILARES.map(p => <option key={p} value={p}>{p}</option>)}
+            </select>
+            <select
+              value={aiAngulo}
+              onChange={e => setAiAngulo(e.target.value)}
+              className="flex-1 bg-[#0d0d0f] border border-[#2a2a35] rounded-lg px-2 py-1.5 text-white text-xs focus:outline-none focus:border-[#FEC300]"
+            >
+              {ANGULOS.map(a => <option key={a} value={a}>{a}</option>)}
+            </select>
+          </div>
+          <button
+            onClick={handleGenerate}
+            disabled={generating}
+            className="w-full flex items-center justify-center gap-2 bg-[#FEC300]/10 hover:bg-[#FEC300]/20 border border-[#FEC300]/30 text-[#FEC300] font-medium py-2 rounded-lg text-xs transition-all disabled:opacity-50"
+          >
+            <Sparkles size={12} className={generating ? 'animate-spin' : ''} />
+            {generating ? 'Generando guión...' : 'Generar con IA'}
+          </button>
+        </div>
 
         {/* Guión */}
         <div>
