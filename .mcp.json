@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "codex-frontend": {
+      "command": "codex",
+      "args": ["mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      }
+    },
+    "codex-backend": {
+      "command": "codex",
+      "args": ["mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      }
+    },
+    "codex-tests": {
+      "command": "codex",
+      "args": ["mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      }
+    },
+    "gemini-vision": {
+      "command": "npx",
+      "args": ["gemini-mcp", "--api-key", "${GEMINI_API_KEY}"]
+    },
+    "playwright": {
+      "command": "playwright-mcp",
+      "args": []
+    }
+  }
+}
