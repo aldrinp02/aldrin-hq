@@ -20,10 +20,10 @@ function KPICard({ label, value, sub, href, accent = false }: {
   accent?: boolean
 }) {
   return (
-    <Link href={href} className="block bg-[#0d0d0f] border border-[#1a1a1f] rounded-xl p-5 hover:border-[#2a2a35] transition-colors group">
-      <p className="text-xs text-[#555560] uppercase tracking-wider mb-3">{label}</p>
-      <p className={`text-3xl font-bold font-mono ${accent ? 'text-[#FEC300]' : 'text-white'}`}>{value}</p>
-      {sub && <p className="text-xs text-[#555560] mt-2">{sub}</p>}
+    <Link href={href} className="block bg-[#0d0d0f] border border-[#1a1a1f] rounded-xl p-4 sm:p-5 hover:border-[#2a2a35] transition-colors group">
+      <p className="text-[10px] sm:text-xs text-[#555560] uppercase tracking-wider mb-2 sm:mb-3 leading-tight">{label}</p>
+      <p className={`text-2xl sm:text-3xl font-bold font-mono ${accent ? 'text-[#FEC300]' : 'text-white'}`}>{value}</p>
+      {sub && <p className="text-[10px] sm:text-xs text-[#555560] mt-1.5 sm:mt-2 leading-tight">{sub}</p>}
     </Link>
   )
 }

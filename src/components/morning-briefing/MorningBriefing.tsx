@@ -76,14 +76,14 @@ export default function MorningBriefing({ initialFocus, userId: _userId, todayCo
   const published   = todayContent.filter(c => c.stage === 'published')
 
   return (
-    <div className="max-w-2xl space-y-8">
+    <div className="w-full max-w-2xl space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 text-[#FEC300] mb-2">
           <Sun size={20} />
           <span className="text-sm font-medium uppercase tracking-wider">Morning Briefing</span>
         </div>
-        <h1 className="text-3xl font-bold text-white">{formatDate()}</h1>
+        <h1 className="text-xl sm:text-3xl font-bold text-white">{formatDate()}</h1>
         {focus?.theme && !editing && (
           <p className="text-[#898B8F] mt-1">Tema del día: <span className="text-[#FEC300]">{focus.theme}</span></p>
         )}
@@ -184,7 +184,7 @@ export default function MorningBriefing({ initialFocus, userId: _userId, todayCo
                   <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0 ${STAGE_COLORS[item.stage]}`}>
                     {STAGE_LABELS[item.stage]}
                   </span>
-                  <span className="text-[10px] text-[#555560] uppercase shrink-0">{item.platform}</span>
+                  <span className="hidden sm:inline text-[10px] text-[#555560] uppercase shrink-0">{item.platform}</span>
                 </Link>
               )
             })}
