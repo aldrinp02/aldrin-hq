@@ -8,6 +8,7 @@ import {
   Sun, FolderOpen, CheckSquare, Layout, Users, CalendarDays,
   ChevronLeft, ChevronRight, LogOut, Menu, DollarSign, BarChart2
 } from 'lucide-react'
+import MobileAppGrid from '@/components/mobile/MobileAppGrid'
 
 const NAV = [
   { href: '/',              label: 'Morning Briefing', icon: Sun },
@@ -112,13 +113,40 @@ export default function Sidebar() {
         />
       )}
 
-      {/* Mobile sidebar */}
+      {/* Mobile sidebar — grid layout */}
       <aside
-        className={`md:hidden fixed inset-y-0 left-0 z-50 w-64 bg-[#0d0d0f] border-r border-[#1a1a1f] transform transition-transform ${
+        className={`md:hidden fixed inset-y-0 left-0 z-50 w-72 bg-[#0a0a0c] border-r border-[#1a1a1f] transform transition-transform flex flex-col ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {sidebarContent}
+        {/* Header */}
+        <div className="flex items-center justify-between h-14 px-4 border-b border-[#1a1a1f] shrink-0">
+          <span className="font-mono font-bold text-base tracking-tight">
+            ALDRIN <span className="text-[#FEC300]">HQ</span>
+          </span>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-white/5 text-[#898B8F]"
+          >
+            <ChevronLeft size={16} />
+          </button>
+        </div>
+
+        {/* App Grid */}
+        <div className="flex-1 overflow-y-auto px-4 py-4">
+          <MobileAppGrid onNavigate={() => setMobileOpen(false)} />
+        </div>
+
+        {/* Logout */}
+        <div className="px-4 py-4 border-t border-[#1a1a1f] shrink-0">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#898B8F] hover:text-red-400 hover:bg-red-400/5 transition-colors w-full"
+          >
+            <LogOut size={18} className="shrink-0" />
+            <span>Salir</span>
+          </button>
+        </div>
       </aside>
 
       {/* Desktop sidebar */}

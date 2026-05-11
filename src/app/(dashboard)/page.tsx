@@ -1,6 +1,7 @@
 import { createServerClient } from '@/lib/supabase/server'
 import MorningBriefing from '@/components/morning-briefing/MorningBriefing'
 import DashboardKPIs from '@/components/dashboard/DashboardKPIs'
+import MobileAppGrid from '@/components/mobile/MobileAppGrid'
 import type { ContentItem } from '@/types'
 
 export default async function HomePage() {
@@ -41,9 +42,17 @@ export default async function HomePage() {
     .filter(p => p.publish_date?.startsWith(today))
 
   return (
-    <div className="space-y-8">
-      <DashboardKPIs kpis={kpis} />
-      <MorningBriefing initialFocus={focus} userId={uid} todayContent={todayContent} />
-    </div>
+    <>
+      {/* Mobile: App Grid launcher */}
+      <div className="md:hidden">
+        <MobileAppGrid />
+      </div>
+
+      {/* Desktop: KPIs + Morning Briefing */}
+      <div className="hidden md:block space-y-8">
+        <DashboardKPIs kpis={kpis} />
+        <MorningBriefing initialFocus={focus} userId={uid} todayContent={todayContent} />
+      </div>
+    </>
   )
 }
